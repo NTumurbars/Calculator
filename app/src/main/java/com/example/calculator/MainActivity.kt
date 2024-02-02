@@ -3,6 +3,7 @@ package com.example.calculator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
@@ -28,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calculator.ui.theme.CalculatorTheme
@@ -54,7 +57,6 @@ fun Calculator(modifier: Modifier = Modifier) {
 
     var displayedText : String by remember { mutableStateOf("") }
     var action : String by remember { mutableStateOf("") }
-    var result :  Int by remember { mutableStateOf(0) }
     var argument1 : Int by remember { mutableStateOf(0) }
     var argument2 : Int by remember { mutableStateOf(0) }
 
@@ -105,10 +107,10 @@ fun Calculator(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(50.dp))
 
         Text(
-            text = displayedText,
-            modifier = Modifier
-                .padding(bottom = 10.dp)
+            modifier = Modifier.background(Color(0xC4B2E7FF))
+                .size(width = 250.dp, height = 25.dp)
                 .fillMaxWidth(),
+            text = displayedText,
         )
 
         Spacer(modifier = Modifier.height(50.dp))
@@ -254,7 +256,7 @@ fun Calculator(modifier: Modifier = Modifier) {
                     argument1 = argument1 + argument2
                     argument2 = 0
                     action = ""
-                    state = 1
+                    state = 0
                 }
 
                 if(action == "-")
@@ -262,7 +264,7 @@ fun Calculator(modifier: Modifier = Modifier) {
                     argument1 = argument1 - argument2
                     argument2 = 0
                     action = ""
-                    state = 1
+                    state = 0
                 }
             },
                 shape = RoundedCornerShape(30.dp),
@@ -290,6 +292,20 @@ fun Calculator(modifier: Modifier = Modifier) {
             )
             {
                 Text(text = "0")
+            }
+
+            Spacer(modifier = Modifier.padding(35.dp))
+
+            Button(onClick = {
+                argument1 = 0
+                argument2 = 0
+                action = ""
+                state = 0
+            },
+                shape = RoundedCornerShape(30.dp),
+            )
+            {
+                Text(text = "Clear")
             }
 
 
